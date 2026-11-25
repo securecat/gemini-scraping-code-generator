@@ -13,6 +13,7 @@
             --color-text: #333;
             --color-label: #555;
             --color-hint: #666;
+            --color-error: #a50e0e;
             --color-accent: #174ea6;
             --color-button-bg: #174ea6;
             --color-button-bg-hover: #0f3d82;
@@ -34,6 +35,7 @@
                 --color-text: #e0e0e0;
                 --color-label: #b0b0b0;
                 --color-hint: #aaa;
+                --color-error: #ff8a80;
                 --color-accent: #8ab4f8;
                 --color-button-bg: #8ab4f8;
                 --color-button-bg-hover: #aecbfa;
@@ -175,6 +177,9 @@
             text-align: center;
             margin-top: 15px;
         }
+        .status.is-error {
+            color: var(--color-error);
+        }
         .required {
             font-weight: normal;
         }
@@ -251,6 +256,25 @@
         }
     });
 
+    const statusText = document.getElementById('status-text');
+
+    // ステータス欄にメッセージを出す。同じ文言が続いても読み上げられるよう、一度空にしてから少し遅らせて設定する
+    function showStatus(message, isError = false) {
+        statusText.textContent = '';
+        statusText.classList.toggle('is-error', isError);
+        setTimeout(() => {
+            statusText.textContent = message;
+        }, 100);
+    }
+
+    // エラーを直すために入力欄を操作し始めたら、エラーのメッセージを消す
+    document.querySelector('main').addEventListener('input', () => {
+        if (statusText.classList.contains('is-error')) {
+            statusText.textContent = '';
+            statusText.classList.remove('is-error');
+        }
+    });
+
     document.getElementById('generate-btn').addEventListener('click', async () => {
         const apiKey = document.getElementById('api-key').value.trim();
         const saveKey = document.getElementById('save-key').checked;
@@ -259,16 +283,15 @@
         const totalPages = document.getElementById('total-pages').value;
         const extractRule = document.getElementById('extract-rule').value.trim();
 
-        const statusText = document.getElementById('status-text');
         const outputContainer = document.getElementById('output-container');
         const codeBlock = document.getElementById('code-block');
 
-        if (!apiKey) {
-            alert('APIキーを入力してください。');
-            return;
-        }
-        if (!targetUrl || !extractRule) {
-            alert('URLと抽出ルールは必須項目です。');
+        const missing = [];
+        if (!apiKey) missing.push('Gemini API Key');
+        if (!targetUrl) missing.push('最初にアクセスするURL');
+        if (!extractRule) missing.push('各ページから抽出したい内容');
+        if (missing.length > 0) {
+            showStatus(`エラー：${missing.join('、')}を入力してください。`, true);
             return;
         }
 
@@ -317,7 +340,7 @@ ${extractRule}
 - 最終的に、上記条件通りのHTMLファイルを出力するプログラムにしてください。
 `;
 
-        statusText.textContent = 'Geminiがコードを生成中...（数秒かかります）';
+        showStatus('Geminiがコードを生成中...（数秒かかります）');
         outputContainer.style.display = 'none';
         document.getElementById('copy-status').textContent = '';
 
@@ -342,13 +365,12 @@ ${extractRule}
             generatedText = generatedText.replace(/^```python\s*/i, '').replace(/```\s*$/, '').trim();
 
             codeBlock.textContent = generatedText;
-            statusText.textContent = '生成が完了しました！';
+            showStatus('生成が完了しました！');
             outputContainer.style.display = 'block';
 
         } catch (error) {
             console.error(error);
-            statusText.textContent = '';
-            alert('エラーが発生しました:\n' + error.message);
+            showStatus(`エラー：コードを生成できませんでした。${error.message}`, true);
         }
     });
 
