@@ -193,7 +193,7 @@
     <div class="form-group">
         <label for="api-key">Gemini API Key <span class="required">（必須）</span></label>
         <p id="api-key-hint" class="hint">AIzaSy... で始まるキーを入力</p>
-        <input type="password" id="api-key" aria-describedby="api-key-hint" required>
+        <input type="password" id="api-key" aria-describedby="api-key-hint">
         <label class="checkbox-label">
             <input type="checkbox" id="save-key"> このブラウザにキーを記憶させる
         </label>
@@ -204,7 +204,7 @@
     <div class="form-group">
         <label for="target-url">1. 最初にアクセスするURL（ベースURL） <span class="required">（必須）</span></label>
         <p id="target-url-hint" class="hint">例：https://www.example.com/folder/... など</p>
-        <input type="text" id="target-url" aria-describedby="target-url-hint" required>
+        <input type="text" id="target-url" aria-describedby="target-url-hint">
     </div>
 
     <div class="row">
@@ -226,7 +226,7 @@
     <div class="form-group">
         <label for="extract-rule">4. 各ページから抽出したい内容（ルール、タグ、日本語でOK） <span class="required">（必須）</span></label>
         <p id="extract-rule-hint" class="hint">例：すべてのtr要素を探し、その中にある最初のaタグのURLとテキストを抽出する。HTMLの出力形式は &lt;li&gt;&lt;a href='URL' target='_blank'&gt;テキスト&lt;/a&gt;&lt;/li&gt; にして、最後に全体を &lt;ul&gt; で括る。</p>
-        <textarea id="extract-rule" aria-describedby="extract-rule-hint" required></textarea>
+        <textarea id="extract-rule" aria-describedby="extract-rule-hint"></textarea>
     </div>
 
     <button id="generate-btn" type="button">Pythonコードを自動生成する</button>
