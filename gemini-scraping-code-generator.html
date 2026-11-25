@@ -363,6 +363,11 @@ ${extractRule}
             copyStatus.textContent = 'コードをコピーできませんでした。コード欄を選択してコピーしてください。';
         });
     });
+
+    // ほかのウィンドウやタブへ移った時点で、利用者の注意はこのページから離れたものとして、コピーの結果を消す
+    window.addEventListener('blur', () => {
+        document.getElementById('copy-status').textContent = '';
+    });
 </script>
 
 </body>
