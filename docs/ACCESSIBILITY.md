@@ -14,7 +14,7 @@ For the UI, we target WCAG 2.2 Level AA, and we treat it as a minimum, not a cei
 
 - Browser: Tested with Chrome and Edge. Not yet tested with Firefox or Safari
 - Operating systems: Tested on Windows. Not yet tested on macOS, Linux, iOS, or Android
-- Screen readers: Tested with NVDA. Not yet tested with Narrator, PC-Talker, JAWS, VoiceOver, or TalkBack
+- Screen readers: Tested with NVDA and Narrator. Not yet tested with PC-Talker, JAWS, VoiceOver, or TalkBack
 
 ## Known Limitations
 
@@ -91,7 +91,7 @@ UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下�
 
 - ブラウザ：Chrome、Edge で確認済み。Firefox、Safari はまだ試していません
 - OS：Windows で確認済み。macOS、Linux、iOS、Android はまだ試していません
-- スクリーンリーダー：NVDA で確認済み。ナレーター、PC-Talker、JAWS、VoiceOver、TalkBack はまだ試していません
+- スクリーンリーダー：NVDA、ナレーターで確認済み。PC-Talker、JAWS、VoiceOver、TalkBack はまだ試していません
 
 ## 既知の制限
 
